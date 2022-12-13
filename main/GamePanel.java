@@ -1,0 +1,96 @@
+package Tetris.main;
+
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+public class GamePanel extends JPanel implements Runnable {
+
+    // Setup our screen
+    public final int screenWidth = Constants.MAX_COLUMNS * Constants.SCALED_TILESIZE;
+    public final int screenHeight = Constants.MAX_ROWS * Constants.SCALED_TILESIZE;
+
+    // The game thread on which the game will run
+    private Thread gameThread;
+
+    // To handle the key press events
+    public KeyHandler keyH = new KeyHandler();
+
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Constants.BACKGROUND_COLOR);
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+    }
+
+    // To start the game
+    public void startGameThread() {
+        // Initialize the game thread
+        // Passing in 'this' because this class contains the run method
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public void update(double dt) {
+        /*
+         * Update all the GameObjects here!
+         */
+        
+    }
+
+    public void paintComponent(Graphics g) {
+        // Call the parent's implementation of this function
+        super.paintComponent(g);
+
+        // Cast the graphics to graphics2D for ease of use
+        Graphics2D g2 = (Graphics2D) g;
+
+        /*
+         * Draw GameObjects here!
+         */
+
+        // Dispose the graphics at end of function to release some memory
+        g2.dispose();
+    }
+
+    // The GameLoop resides in here!
+    @Override
+    public void run() {
+
+        /*
+         * Logic for the GameLoop in here!!
+         */
+        
+        // First of all let's calculate the frame delay
+        final long frameDelay = 1000/Constants.FPS;
+
+        // Capture the time at start of the frame with this
+        long frameStartTime = 0;
+
+        // Start the GameLoop
+        while(gameThread != null) {
+            // Fetch the start time of this frame
+            frameStartTime = System.currentTimeMillis();
+
+            // Handle all the events, update and draw
+            update(1);
+            repaint();
+
+            frameStartTime = System.currentTimeMillis() - frameStartTime;
+
+            // If we still have some time to delay then do this
+            if(frameDelay > frameStartTime) {
+                // The above statement is equivalent to: frameDelay - frameStartTime > 0
+                try {
+                    Thread.sleep(frameDelay - frameStartTime);
+                } catch (InterruptedException e) {
+                    // To handle the error
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+}

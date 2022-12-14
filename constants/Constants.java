@@ -10,6 +10,9 @@ public class Constants {
 
     // The desired FPS to run the game at
     public static final int FPS = 5;
+
+    // Properties of some GameObjects/Entities
+    public static final int PIECE_GRAVITY = 1;
     
     // Information on the max rows and columns
     public static final int MAX_COLUMNS = 12;

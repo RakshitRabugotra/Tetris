@@ -1,6 +1,7 @@
 package Tetris.main;
 
 import Tetris.constants.Constants;
+import Tetris.entity.Grid;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +18,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     // To handle the key press events
     public KeyHandler keyH = new KeyHandler();
+
+    /*
+     * Instantiate new Objects here!!
+     */
+    Grid grid = new Grid(this, keyH, 0, 0, Constants.MAX_COLUMNS, Constants.MAX_ROWS);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -38,7 +44,8 @@ public class GamePanel extends JPanel implements Runnable {
         /*
          * Update all the GameObjects here!
          */
-        
+        // Update the grid...
+        grid.update(dt);
     }
 
     public void paintComponent(Graphics g) {
@@ -51,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
         /*
          * Draw GameObjects here!
          */
+        grid.draw(g2);
 
         // Dispose the graphics at end of function to release some memory
         g2.dispose();

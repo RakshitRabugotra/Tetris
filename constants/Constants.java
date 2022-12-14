@@ -9,14 +9,16 @@ public class Constants {
     public static final Color BACKGROUND_COLOR = Color.BLACK;
 
     // To initialize Debug mode
-    public static final boolean IS_DEBUG_MODE = true;
+    public static final boolean IS_DEBUG_MODE = false;
 
     // The desired FPS to run the game at
-    public static final int FPS = 5;
+    public static int FPS = 5;
+    // This is the desired Updates per frame
+    public static int UPF = 10;
 
-    // Properties of some GameObjects/Entities
-    public static final int PIECE_GRAVITY = 1;
-    
+    // Speed the game by this factor on pressing down-key
+    public static final int SPEED_UP_FACTOR = 3;
+
     // Information on the max rows and columns
     public static final int MAX_COLUMNS = 12;
     public static final int MAX_ROWS = 22;

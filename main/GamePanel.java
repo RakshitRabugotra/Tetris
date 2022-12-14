@@ -71,20 +71,24 @@ public class GamePanel extends JPanel implements Runnable {
         /*
          * Logic for the GameLoop in here!!
          */
-        
-        // First of all let's calculate the frame delay
-        final long frameDelay = 1000/Constants.FPS;
-
         // Capture the time at start of the frame with this
         long frameStartTime = 0;
 
+        int frameCounter = 0;
+
         // Start the GameLoop
         while(gameThread != null) {
+            // First of all let's calculate the frame delay, repeatedly because we can vary the FPS
+            long frameDelay = 1000/Constants.FPS;
+
             // Fetch the start time of this frame
             frameStartTime = System.currentTimeMillis();
 
             // Handle all the events, update and draw
-            update(1);
+            // We will update only every UPF frames per time
+            if(frameCounter % Constants.UPF == 0) {
+                update(1);
+            }
             repaint();
 
             frameStartTime = System.currentTimeMillis() - frameStartTime;
@@ -99,6 +103,8 @@ public class GamePanel extends JPanel implements Runnable {
                     e.printStackTrace();
                 }
             }
+
+            frameCounter++;
         }
     }
 

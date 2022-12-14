@@ -169,13 +169,6 @@ public class Grid extends Entity {
         /*
          * Bottom collision check
          */
-        p.canMoveDown = true;
-
-        // This means the piece has reached the last tile
-        if(p.y + p.height >= this.height) {
-            p.canMoveDown = false;
-            return true;
-        }
 
         /*
          * Positive condition:
@@ -189,9 +182,15 @@ public class Grid extends Entity {
         for(int col = p.x; col < p.x + p.width; col++) {
             // Move in the pairs of two
             for(int row = p.y + p.height; row > p.y; row--) {
-                // Fetch the top and bottom pair
-                top = currentGridShape[row-1][col];
-                bottom = currentGridShape[row][col];
+
+                try {
+                    // Fetch the top and bottom pair
+                    top = currentGridShape[row-1][col];
+                    bottom = currentGridShape[row][col];
+                } catch(ArrayIndexOutOfBoundsException outOfBoundsException) {
+                    // If the array gets out of bounds... then there's a definite collision
+                    return true;
+                }
 
                 // If the pair is like this then there's a collision
                 if(top != bottom && top != 0 && bottom != 0) return true;
@@ -223,7 +222,6 @@ public class Grid extends Entity {
                 right = currentGridShape[row][p.x];
             } catch(ArrayIndexOutOfBoundsException outOfBoundsException) {
                 // If we're indexing outside the grid.. then the collision is definite
-                outOfBoundsException.printStackTrace();
                 return true;
             }
 
@@ -265,7 +263,6 @@ public class Grid extends Entity {
                     right = currentGridShape[row][col];
                 } catch(ArrayIndexOutOfBoundsException outOfBoundsException) {
                     // If we're indexing outside the grid.. then the collision is definite
-                    outOfBoundsException.printStackTrace();
                     return true;
                 }
 

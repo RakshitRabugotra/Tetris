@@ -2,6 +2,7 @@ package Tetris.entity;
 
 import java.awt.Graphics2D;
 
+import Tetris.constants.Constants;
 import Tetris.constants.PieceProperties;
 import Tetris.main.KeyHandler;
 import Tetris.resource.Matrix;
@@ -19,6 +20,9 @@ public class Piece extends Entity {
 
     // Can the piece move in these direction... to avoid overlapping
     public boolean canMoveRight = true, canMoveLeft = true, canMoveDown = true;
+
+    // Set the upper bound of the Piece... the piece cannot be instantiated above this Y
+    public int upperBound = 0;
 
     // The instance of KeyHandler to handle events
     private KeyHandler keyH; 
@@ -61,7 +65,10 @@ public class Piece extends Entity {
         if(keyH.rightPressed && canMoveRight) this.x++;
 
         // Make the Piece fall down
+        if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
 
+        // Also we need to bound the Y position of this piece
+        this.y = Math.max(this.upperBound, this.y);
     }
 
     @Override

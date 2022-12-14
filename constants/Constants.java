@@ -12,9 +12,9 @@ public class Constants {
     public static final boolean IS_DEBUG_MODE = false;
 
     // The desired FPS to run the game at
-    public static int FPS = 5;
+    public static int FPS = 15;
     // This is the desired Updates per frame
-    public static int UPF = 10;
+    public static int UPF = 3;
 
     // Speed the game by this factor on pressing down-key
     public static final int SPEED_UP_FACTOR = 3;

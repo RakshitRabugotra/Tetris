@@ -9,6 +9,11 @@ public class PieceProperties {
 
     // Shapes will be contained in a 3D array
     public static final int[][][] SHAPES = new int[][][] {
+        { // Placeholder NULL Shape
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+        },
         {
             {0, 0, 0},
             {1, 1, 1},

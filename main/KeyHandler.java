@@ -5,6 +5,21 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    /*
+     * Booleans representing which key is pressed right now
+     */
+    public boolean leftPressed, rightPressed;
+    public boolean rotateClockwisePressed, rotateCounterClockwisePressed;
+
+    /*
+     * Change the key-bindings here
+     */
+    private static int leftKey = KeyEvent.VK_LEFT;
+    private static int rightKey = KeyEvent.VK_RIGHT;
+
+    private static int rotateClockwise = KeyEvent.VK_E;
+    private static int rotateCounterClockwise = KeyEvent.VK_Q;
+
     @Override
     public void keyTyped(KeyEvent e) {
         // It'll barely be used
@@ -12,14 +27,24 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
+        // The key is pressed by the user
+        int code = e.getKeyCode();
+
+        if(code == leftKey) leftPressed = true;
+        if(code == rightKey) rightPressed = true;
+        if(code == rotateClockwise) rotateClockwisePressed = true;
+        if(code == rotateCounterClockwise) rotateCounterClockwisePressed = true;   
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
+        // User released the key
+        int code = e.getKeyCode();
+
+        if(code == leftKey) leftPressed = false;
+        if(code == rightKey) rightPressed = false;
+        if(code == rotateClockwise) rotateClockwisePressed = false;
+        if(code == rotateCounterClockwise) rotateCounterClockwisePressed = false;
     }
     
 }

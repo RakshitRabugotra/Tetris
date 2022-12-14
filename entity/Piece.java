@@ -27,9 +27,9 @@ public class Piece extends Entity {
     // The instance of KeyHandler to handle events
     private KeyHandler keyH; 
 
-    public Piece(KeyHandler keyH, int posX, int posY, int entityWidth, int entityHeight, int colorIndex) {
+    public Piece(KeyHandler keyH, int posX, int posY, int colorIndex) {
         // Call the superclass constructor to set the position and dimensions
-        super(posX, posY, entityWidth, entityHeight);
+        super(posX, posY, 3, 3);
         // Set the color of the piece
         this.colorIndex = colorIndex;
         this.color = PieceProperties.COLORS[colorIndex];
@@ -78,5 +78,32 @@ public class Piece extends Entity {
          */
         return;
     }
+
+    /*
+     * To return a copy of same shape but with new color
+     */
+    public int[][] changeColor(int colorIndex) {
+
+        // If the color is not valid, then return
+        if (!(0 <= colorIndex && colorIndex <= 9)) {
+            return new int[this.height][this.width];
+        }
+
+        // Make a copy of this shape
+        int[][] newColorShape = new int[this.height][this.width];
+
+        // Iterate in the shape
+        for(int row = 0; row < this.height; row++) {
+            for(int col = 0; col < this.width; col++) {
+                // If the cell is non-empty, then replace it with the new color
+                if(this.shape[row][col] != 0) newColorShape[row][col] = colorIndex;
+                // Else, we will copy the zeros
+                else newColorShape[row][col] = this.shape[row][col];
+            }
+        }
+
+        return newColorShape;
+    }
+
     
 }

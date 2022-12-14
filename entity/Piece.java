@@ -64,10 +64,14 @@ public class Piece extends Entity {
         if(keyH.leftPressed && canMoveLeft) this.x--;
         if(keyH.rightPressed && canMoveRight) this.x++;
 
-        // Make the Piece fall down
-        // if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
-        if(keyH.downPressed && canMoveDown) this.y++;
-        if(keyH.upPressed) this.y--;
+        if(!Constants.IS_DEBUG_MODE) {
+            // Make the Piece fall down
+            if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
+        } else {
+            // In debug mode we're free to move the piece
+            if(keyH.downPressed && canMoveDown) this.y++;
+            if(keyH.upPressed) this.y--;
+        }
 
         // Also we need to bound the Y position of this piece
         this.y = Math.max(this.upperBound, this.y);

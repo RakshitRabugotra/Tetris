@@ -8,6 +8,9 @@ public class Constants {
     public static final boolean RESIZABLE = false;
     public static final Color BACKGROUND_COLOR = Color.BLACK;
 
+    // To initialize Debug mode
+    public static final boolean IS_DEBUG_MODE = true;
+
     // The desired FPS to run the game at
     public static final int FPS = 5;
 

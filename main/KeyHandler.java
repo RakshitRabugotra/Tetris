@@ -3,6 +3,8 @@ package Tetris.main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import Tetris.constants.Constants;
+
 public class KeyHandler implements KeyListener {
 
     /*
@@ -36,8 +38,13 @@ public class KeyHandler implements KeyListener {
 
         if(code == leftKey) leftPressed = true;
         if(code == rightKey) rightPressed = true;
-        if(code == upKey) upPressed = true;
-        if(code == downKey) downPressed = true;
+
+        // We can move the piece up and down only in Debug mode
+        if(Constants.IS_DEBUG_MODE) {
+            if(code == upKey) upPressed = true;
+            if(code == downKey) downPressed = true;
+        }
+
         if(code == rotateClockwise) rotateClockwisePressed = true;
         if(code == rotateCounterClockwise) rotateCounterClockwisePressed = true;   
     }
@@ -49,8 +56,11 @@ public class KeyHandler implements KeyListener {
 
         if(code == leftKey) leftPressed = false;
         if(code == rightKey) rightPressed = false;
-        if(code == upKey) upPressed = false;
-        if(code == downKey) downPressed = false;
+        // We can move the piece up and down only in Debug mode
+        if(Constants.IS_DEBUG_MODE) {
+            if(code == upKey) upPressed = false;
+            if(code == downKey) downPressed = false;
+        }
         if(code == rotateClockwise) rotateClockwisePressed = false;
         if(code == rotateCounterClockwise) rotateCounterClockwisePressed = false;
     }

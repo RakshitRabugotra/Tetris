@@ -1,4 +1,4 @@
-package Tetris.main;
+package Tetris.constants;
 
 import java.awt.Color;
 

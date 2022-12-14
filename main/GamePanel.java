@@ -1,5 +1,6 @@
 package Tetris.main;
 
+import Tetris.constants.Constants;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;

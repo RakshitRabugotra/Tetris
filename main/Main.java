@@ -1,5 +1,6 @@
 package Tetris.main;
 
+import Tetris.constants.Constants;
 import javax.swing.JFrame;
 
 public class Main {

@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import Tetris.constants.PieceProperties;
 import Tetris.main.KeyHandler;
+import Tetris.resource.Matrix;
 
 import java.awt.Color;
 
@@ -48,6 +49,11 @@ public class Piece extends Entity {
         // We can also rotate the block if the block is worth rotating
         if(this.colorIndex != 4) {
             // Check and rotate the piece accordingly
+
+            // For the clockwise rotation
+            if(keyH.rotateClockwisePressed) this.shape = Matrix.rotateClockWise(new Matrix(shape)).getShape();
+            // For the counter-clockwise rotation
+            if(keyH.rotateCounterClockwisePressed) this.shape = Matrix.rotateCounterClockWise(new Matrix(shape)).getShape();
         }
 
         // We can move the piece on X-axis

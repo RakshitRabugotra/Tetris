@@ -65,7 +65,9 @@ public class Piece extends Entity {
         if(keyH.rightPressed && canMoveRight) this.x++;
 
         // Make the Piece fall down
-        if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
+        // if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
+        if(keyH.downPressed && canMoveDown) this.y++;
+        if(keyH.upPressed) this.y--;
 
         // Also we need to bound the Y position of this piece
         this.y = Math.max(this.upperBound, this.y);

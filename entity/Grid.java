@@ -137,8 +137,10 @@ public class Grid extends Entity {
         // we will randomize the color
         int colorIndex = (pieceColorIndex < 1 || pieceColorIndex > 8) ? RNG.nextInt(1, 8) : pieceColorIndex;
 
+        Piece p = new Piece(keyH, posX, posY, colorIndex);
+        p.upperBound = 1;
         // Instantiate a new piece and set its bound
-        return new Piece(keyH, posX, posY, colorIndex);
+        return p;
     }
 
     // Function to draw a Piece on the grid

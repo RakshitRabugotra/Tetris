@@ -15,6 +15,9 @@ public class Piece extends Entity {
     public Color color;
     public int[][] shape;
 
+    // Keeping track of FPS to speed up the tile falling down
+    private static final int originalFPS = Constants.FPS;
+
     // Is the piece active?
     public boolean isActive = false;
 
@@ -40,6 +43,9 @@ public class Piece extends Entity {
 
         // The piece is active now
         this.isActive = true;
+
+        // Set the FPS to original FPS
+        Constants.FPS = originalFPS;
     }
 
     @Override
@@ -55,9 +61,15 @@ public class Piece extends Entity {
             // Check and rotate the piece accordingly
 
             // For the clockwise rotation
-            if(keyH.rotateClockwisePressed) this.shape = Matrix.rotateClockWise(new Matrix(shape)).getShape();
+            if(keyH.rotateClockwisePressed) {
+                this.shape = Matrix.rotateClockWise(new Matrix(shape)).getShape();
+                return;
+            }
             // For the counter-clockwise rotation
-            if(keyH.rotateCounterClockwisePressed) this.shape = Matrix.rotateCounterClockWise(new Matrix(shape)).getShape();
+            if(keyH.rotateCounterClockwisePressed) {
+                this.shape = Matrix.rotateCounterClockWise(new Matrix(shape)).getShape();
+                return;
+            }
         }
 
         // We can move the piece on X-axis
@@ -66,7 +78,11 @@ public class Piece extends Entity {
 
         if(!Constants.IS_DEBUG_MODE) {
             // Make the Piece fall down
-            if(canMoveDown) this.y += Constants.PIECE_GRAVITY;
+            if(canMoveDown) this.y++;
+
+            // If the user pressed down key... then speed up the game
+            if(keyH.downPressed && Constants.FPS == originalFPS) Constants.FPS *= Constants.SPEED_UP_FACTOR;
+
         } else {
             // In debug mode we're free to move the piece
             if(keyH.downPressed && canMoveDown) this.y++;

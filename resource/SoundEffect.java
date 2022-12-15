@@ -15,6 +15,14 @@ public class SoundEffect {
     public SoundEffect(String soundFileName) {
         try {
             File soundFile = new File(soundFileName);
+
+            // Check if the file exists or not
+            if(!soundFile.exists()) {
+                System.out.println("The file path \"" + soundFileName + "\" doesn't exist");
+                System.out.println("CWD: " + System.getProperty("user.dir"));
+                return;
+            }
+
             AudioInputStream soundStream = AudioSystem.getAudioInputStream(soundFile);
             Clip soundClip = AudioSystem.getClip();
             soundClip.open(soundStream);

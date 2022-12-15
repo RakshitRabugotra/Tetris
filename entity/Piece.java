@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import Tetris.constants.Constants;
 import Tetris.constants.PieceProperties;
 import Tetris.main.KeyHandler;
-import Tetris.resource.Matrix;
 
 import java.awt.Color;
 
@@ -28,7 +27,7 @@ public class Piece extends Entity {
     public int upperBound = 0;
 
     // The instance of KeyHandler to handle events
-    private KeyHandler keyH; 
+    public KeyHandler keyH; 
 
     public Piece(KeyHandler keyH, int posX, int posY, int colorIndex) {
         // Call the superclass constructor to set the position and dimensions
@@ -56,21 +55,8 @@ public class Piece extends Entity {
         // If the piece isn't active... then why update it
         if(!isActive) return;
 
-        // We can also rotate the block if the block is worth rotating
-        if(this.colorIndex != 4) {
-            // Check and rotate the piece accordingly
-
-            // For the clockwise rotation
-            if(keyH.rotateClockwisePressed) {
-                this.shape = Matrix.rotateClockWise(new Matrix(shape)).getShape();
-                return;
-            }
-            // For the counter-clockwise rotation
-            if(keyH.rotateCounterClockwisePressed) {
-                this.shape = Matrix.rotateCounterClockWise(new Matrix(shape)).getShape();
-                return;
-            }
-        }
+        // If the piece is being rotated then don't do anything else
+        if(keyH.rotateClockwisePressed || keyH.rotateCounterClockwisePressed) return;
 
         // We can move the piece on X-axis
         if(keyH.leftPressed && canMoveLeft) this.x--;

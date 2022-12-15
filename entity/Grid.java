@@ -359,6 +359,8 @@ public class Grid extends Entity {
                 permanentGridShape[k] = permanentGridShape[k-1];
             }
             rowsRemoved++;
+            // Play the sound on removing a row
+            Constants.soundEffects.get("on-score").play();
         }
 
         this.score += rowsRemoved * bonus;

@@ -78,6 +78,11 @@ public class Grid extends Entity {
         // Clear the grid
         copyPermanentGrid();
 
+        // Let's check if the game is over
+        if(isGameOver()) {
+            return;
+        }
+
         // Check if we should spawn a new piece
         shouldSpawnNewPiece = (currentActivePiece == null);
 
@@ -117,7 +122,9 @@ public class Grid extends Entity {
         removeScoreRows();
 
         // Print the score
-        // System.out.println("SCORE: " + this.score);
+        System.out.println("SCORE: " + this.score);
+        // Print is the game over
+        System.out.println("GAME OVER: " + isGameOver());
     }
 
     @Override
@@ -355,6 +362,25 @@ public class Grid extends Entity {
         }
 
         this.score += rowsRemoved * bonus;
+    }
+
+    // Function to check whether the game is over or not?
+    public boolean isGameOver() {
+        /*
+         * If the spawn region has any tile in it... then the game is over
+         */
+        /*
+         * Spawn region is first 3 rows after the top wall
+         */
+        for(int row = 1; row <= 3; row++) {
+            // Check if the row is filled with zeros or not
+            for(int col = 1; col < this.width-1; col++) {
+                // this.width-1 because we don't want to iterate on the wall
+                if(permanentGridShape[row][col] != 0) return true;
+            }
+        }
+
+        return false;
     }
 
     // Function to render a single tile

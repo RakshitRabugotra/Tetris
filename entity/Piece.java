@@ -56,7 +56,10 @@ public class Piece extends Entity {
         if(!isActive) return;
 
         // If the piece is being rotated then don't do anything else
-        if(keyH.rotateClockwisePressed || keyH.rotateCounterClockwisePressed) return;
+        if((keyH.rotateClockwisePressed || keyH.rotateCounterClockwisePressed) && this.colorIndex != 4) {
+            Constants.soundEffects.get("on-rotate").play();
+            return;
+        }
 
         // We can move the piece on X-axis
         if(keyH.leftPressed && canMoveLeft) this.x--;
@@ -73,6 +76,7 @@ public class Piece extends Entity {
             // In debug mode we're free to move the piece
             if(keyH.downPressed && canMoveDown) this.y++;
             if(keyH.upPressed) this.y--;
+
         }
 
         // Also we need to bound the Y position of this piece

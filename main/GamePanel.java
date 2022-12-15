@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Capture the time at start of the frame with this
         long frameStartTime = 0;
 
-        int frameCounter = 0;
+        int frameCounter = 1;
 
         // Start the GameLoop
         while(gameThread != null) {
@@ -86,8 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Handle all the events, update and draw
             // We will update only every UPF frames per time
-            if(frameCounter % Constants.UPF == 0) {
+            if(frameCounter % (Constants.UPF+1) == 0) {
                 update(1);
+                frameCounter = 1;
             }
             repaint();
 

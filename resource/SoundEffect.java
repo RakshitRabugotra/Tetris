@@ -27,6 +27,7 @@ public class SoundEffect {
         /*
          * Play the sound clip
          */
+        soundClip.setFramePosition(0);
         soundClip.start();
     }
 

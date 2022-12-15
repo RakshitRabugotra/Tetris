@@ -1,6 +1,9 @@
 package Tetris.constants;
 
 import java.awt.Color;
+import java.util.HashMap;
+
+import Tetris.resource.SoundEffect;
 
 public class Constants {
     // Window Configuration    
@@ -10,6 +13,9 @@ public class Constants {
 
     // To initialize Debug mode
     public static final boolean IS_DEBUG_MODE = false;
+
+    // A HashMap to include all the sound effects
+    public static HashMap<String, SoundEffect> soundEffects = new HashMap<String, SoundEffect>();
 
     // The desired FPS to run the game at
     public static int FPS = 5;

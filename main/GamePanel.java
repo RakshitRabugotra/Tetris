@@ -2,6 +2,8 @@ package Tetris.main;
 
 import Tetris.constants.Constants;
 import Tetris.entity.Grid;
+import Tetris.resource.SoundEffect;
+
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -30,6 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        /*
+         * Add audio files to the project here!
+         */
+        Constants.soundEffects.put("on-score", new SoundEffect("on-score.wav"));   
+
     }
 
     // To start the game

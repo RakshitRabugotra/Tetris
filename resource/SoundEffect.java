@@ -14,6 +14,8 @@ public class SoundEffect {
 
     public SoundEffect(String soundFileName) {
         try {
+            // Modify the soundFileName
+            soundFileName = System.getProperty("user.dir") + "\\" + soundFileName;
             File soundFile = new File(soundFileName);
 
             // Check if the file exists or not
@@ -23,10 +25,14 @@ public class SoundEffect {
                 return;
             }
 
-            AudioInputStream soundStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip soundClip = AudioSystem.getClip();
+            this.soundStream = AudioSystem.getAudioInputStream(soundFile);
+            this.soundClip = AudioSystem.getClip();
             soundClip.open(soundStream);
+
+
         } catch(Exception e) {
+
+            System.out.println("\n\nTHERE WAS AN EXCEPTION \n\n");
             e.printStackTrace();
         }
     }
@@ -35,6 +41,8 @@ public class SoundEffect {
         /*
          * Play the sound clip
          */
+        if(soundClip == null) return;
+
         soundClip.setFramePosition(0);
         soundClip.start();
     }
@@ -43,6 +51,7 @@ public class SoundEffect {
         /*
          * Stop the clip
          */
+        if(soundClip == null || soundClip == null) return;
         soundStream.close();
         soundClip.close();
         soundClip.stop();

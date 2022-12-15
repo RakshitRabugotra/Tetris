@@ -41,8 +41,6 @@ public class SoundEffect {
         /*
          * Play the sound clip
          */
-        if(soundClip == null) return;
-
         soundClip.setFramePosition(0);
         soundClip.start();
     }
@@ -50,8 +48,7 @@ public class SoundEffect {
     public void stop() throws IOException {
         /*
          * Stop the clip
-         */
-        if(soundClip == null || soundClip == null) return;
+        */
         soundStream.close();
         soundClip.close();
         soundClip.stop();

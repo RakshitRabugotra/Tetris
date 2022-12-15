@@ -7,6 +7,7 @@ import Tetris.constants.Constants;
 import Tetris.constants.PieceProperties;
 import Tetris.main.GamePanel;
 import Tetris.main.KeyHandler;
+import Tetris.resource.Matrix;
 
 public class Grid extends Entity {
     
@@ -85,6 +86,11 @@ public class Grid extends Entity {
             currentActivePiece = instantiatePiece(spawnColor);
             this.shouldSpawnNewPiece = false;
         }
+
+        /*
+         * Let's set proper rotation for the piece
+         */
+        rotatePiece(currentActivePiece);
         
         // Update the current piece and check for collisions
         currentActivePiece.update(dt);
@@ -111,7 +117,7 @@ public class Grid extends Entity {
         removeScoreRows();
 
         // Print the score
-        System.out.println("SCORE: " + this.score);
+        // System.out.println("SCORE: " + this.score);
     }
 
     @Override
@@ -126,6 +132,41 @@ public class Grid extends Entity {
                 this.renderGridTile(g2, col*Constants.SCALED_TILESIZE, row*Constants.SCALED_TILESIZE, colorIndex);
             }
         }
+    }
+
+    // To rotate the piece
+    private void rotatePiece(Piece p) {
+        // We can also rotate the block if the block is worth rotating
+        if(p.colorIndex == 4) return;
+        // Check and rotate the piece accordingly
+
+        // To avoid repeated actions, we will wrap the logic a little bit by doing this
+        // If we're not rotating the piece then don't do ahead of this point
+        if(!keyH.rotateClockwisePressed && !keyH.rotateCounterClockwisePressed) return;
+
+        // For the clockwise rotation
+        if(keyH.rotateClockwisePressed) {
+            p.shape = Matrix.rotateClockWise(new Matrix(p.shape)).getShape();
+        }
+        // For the counter-clockwise rotation
+        if(keyH.rotateCounterClockwisePressed) {
+            p.shape = Matrix.rotateCounterClockWise(new Matrix(p.shape)).getShape();
+        }
+
+        // Now check if this piece is colliding left or right
+        while(isPieceCollidingLeft(p)) {
+            // Then we will move the piece to the right
+            // till it's not colliding anymore
+            System.out.println("Moving the piece to right");
+            p.x++;
+        }
+        while(isPieceCollidingRight(p)) {
+            // Then we will move the piece to the left
+            // till it's not colliding anymore
+            System.out.println("Moving the piece to left");
+            p.x--;
+        }
+        p.canMoveDown = true; 
     }
 
     // To generate Piece

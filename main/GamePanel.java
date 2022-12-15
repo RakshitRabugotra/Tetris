@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         /*
          * Add audio files to the project here!
          */
-        Constants.soundEffects.put("on-score", new SoundEffect("on-score.wav"));   
+        Constants.soundEffects.put("on-score", new SoundEffect("Tetris\\files\\on_score.wav"));   
 
     }
 

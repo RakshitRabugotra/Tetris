@@ -61,7 +61,7 @@ public class PieceProperties {
         new Color(0, 240, 0),       // For the color-index 5
         new Color(160, 0, 240),     // For the color-index 6
         new Color(240, 0, 0),       // For the color-index 7
-        new Color(128, 128, 128),   // For the color-index 8 (assigned default to walls)
+        new Color(120, 120, 120),   // For the color-index 8 (assigned default to walls)
         new Color(188, 169, 225)        // For the color-index 9 (disabled pieces)
     };
 

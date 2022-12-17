@@ -18,7 +18,7 @@ public class Constants {
     public static HashMap<String, SoundEffect> soundEffects = new HashMap<String, SoundEffect>();
 
     // Change the speed of the Game after every (this) many scores
-    public static final int GAME_SPEED_INCREASE_STEP = 50;
+    public static int GAME_SPEED_INCREASE_STEP = 50;
 
     // The desired FPS to run the game at
     public static int FPS = 5;

@@ -125,6 +125,8 @@ public class Grid extends Entity {
         System.out.println("SCORE: " + this.score);
         // Print is the game over
         System.out.println("GAME OVER: " + isGameOver());
+        // Print the Game FPS
+        System.out.println("FPS: " + Constants.FPS);
     }
 
     @Override
@@ -364,6 +366,11 @@ public class Grid extends Entity {
         }
 
         this.score += rowsRemoved * bonus;
+        // Also check if the score has passed certain threshold,
+        // Then we should increase the game speed
+        if(this.score % Constants.GAME_SPEED_INCREASE_STEP == 0 && this.score != 0) {
+            Constants.FPS += 2;
+        }
     }
 
     // Function to check whether the game is over or not?

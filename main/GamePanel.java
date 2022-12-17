@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
         Constants.soundEffects.put("on-score", new SoundEffect("Tetris/files/on_score.wav"));   
         Constants.soundEffects.put("on-rotate", new SoundEffect("Tetris/files/on_rotate.wav"));
         Constants.soundEffects.put("on-collide", new SoundEffect("Tetris/files/on_collide.wav"));
+        Constants.soundEffects.put("on-movement", new SoundEffect("Tetris/files/on_movement.wav"));
     }
 
     // To start the game

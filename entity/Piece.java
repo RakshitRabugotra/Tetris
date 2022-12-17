@@ -14,9 +14,6 @@ public class Piece extends Entity {
     public Color color;
     public int[][] shape;
 
-    // Keeping track of FPS to speed up the tile falling down
-    private static final int originalFPS = Constants.FPS;
-
     // Is the piece active?
     public boolean isActive = false;
 
@@ -42,9 +39,6 @@ public class Piece extends Entity {
 
         // The piece is active now
         this.isActive = true;
-
-        // Set the FPS to original FPS
-        Constants.FPS = originalFPS;
     }
 
     @Override
@@ -62,15 +56,23 @@ public class Piece extends Entity {
         }
 
         // We can move the piece on X-axis
-        if(keyH.leftPressed && canMoveLeft) this.x--;
-        if(keyH.rightPressed && canMoveRight) this.x++;
+        if(keyH.leftPressed && canMoveLeft) {
+            this.x--;
+            // Let the player move on the X-axis as long as they want
+            return;
+        }
+        if(keyH.rightPressed && canMoveRight) {
+            this.x++;
+            // Let the player move on the X-axis as long as they want
+            return;
+        }
 
         if(!Constants.IS_DEBUG_MODE) {
             // Make the Piece fall down
             if(canMoveDown) this.y++;
 
             // If the user pressed down key... then speed up the game
-            if(keyH.downPressed && Constants.FPS == originalFPS) Constants.FPS *= Constants.SPEED_UP_FACTOR;
+            if(keyH.downPressed && Constants.varCurrentFPS == Constants.constFPS) Constants.varCurrentFPS *= Constants.SPEED_UP_FACTOR;
 
         } else {
             // In debug mode we're free to move the piece

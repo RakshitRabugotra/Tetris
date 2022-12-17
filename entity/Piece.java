@@ -58,18 +58,24 @@ public class Piece extends Entity {
         // We can move the piece on X-axis
         if(keyH.leftPressed && canMoveLeft) {
             this.x--;
+            // Play the movement sound
+            Constants.soundEffects.get("on-movement").play();
             // Let the player move on the X-axis as long as they want
             return;
         }
         if(keyH.rightPressed && canMoveRight) {
             this.x++;
+            // Play the movement sound
+            Constants.soundEffects.get("on-movement").play();
             // Let the player move on the X-axis as long as they want
             return;
         }
 
         if(!Constants.IS_DEBUG_MODE) {
             // Make the Piece fall down
-            if(canMoveDown) this.y++;
+            if(canMoveDown) {
+                this.y++;
+            }
 
             // If the user pressed down key... then speed up the game
             if(keyH.downPressed && Constants.varCurrentFPS == Constants.constFPS) Constants.varCurrentFPS *= Constants.SPEED_UP_FACTOR;
@@ -78,7 +84,6 @@ public class Piece extends Entity {
             // In debug mode we're free to move the piece
             if(keyH.downPressed && canMoveDown) this.y++;
             if(keyH.upPressed) this.y--;
-
         }
 
         // Also we need to bound the Y position of this piece

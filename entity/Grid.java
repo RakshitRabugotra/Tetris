@@ -32,6 +32,9 @@ public class Grid extends Entity {
     // Keep track of current Piece
     private Piece currentActivePiece = null;
 
+    // Keep track of the current Piece speed
+    private int gameSpeedThreshold = Constants.GAME_SPEED_INCREASE_STEP;
+
     // We will make a separate grid... which will be displayed on the screen
     // when the grid is cleared
     public int[][] permanentGridShape;
@@ -90,6 +93,11 @@ public class Grid extends Entity {
         if(this.shouldSpawnNewPiece) {
             currentActivePiece = instantiatePiece(spawnColor);
             this.shouldSpawnNewPiece = false;
+            // If this happens then the piece has become permanent on grid
+            // So, we would play this sound
+            Constants.soundEffects.get("on-collide").play();
+            // Also, reset the FPS, if the game was temporarily Sped up
+            if(Constants.varCurrentFPS > Constants.constFPS) Constants.varCurrentFPS = Constants.constFPS;
         }
 
         /*
@@ -126,7 +134,8 @@ public class Grid extends Entity {
         // Print is the game over
         System.out.println("GAME OVER: " + isGameOver());
         // Print the Game FPS
-        System.out.println("FPS: " + Constants.FPS);
+        System.out.println("FPS: " + Constants.constFPS);
+        System.out.println("Current FPS: " + Constants.varCurrentFPS);
     }
 
     @Override
@@ -368,8 +377,9 @@ public class Grid extends Entity {
         this.score += rowsRemoved * bonus;
         // Also check if the score has passed certain threshold,
         // Then we should increase the game speed
-        if(this.score % Constants.GAME_SPEED_INCREASE_STEP == 0 && this.score != 0) {
-            Constants.FPS += 2;
+        if(this.score >= gameSpeedThreshold) {
+            gameSpeedThreshold += Constants.GAME_SPEED_INCREASE_STEP;
+            Constants.constFPS += 2;
         }
     }
 

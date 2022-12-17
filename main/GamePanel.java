@@ -36,8 +36,9 @@ public class GamePanel extends JPanel implements Runnable {
         /*
          * Add audio files to the project here!
          */
-        Constants.soundEffects.put("on-score", new SoundEffect("Tetris\\files\\on_score.wav"));   
-        Constants.soundEffects.put("on-rotate", new SoundEffect("Tetris\\files\\on_rotate.wav"));
+        Constants.soundEffects.put("on-score", new SoundEffect("Tetris/files/on_score.wav"));   
+        Constants.soundEffects.put("on-rotate", new SoundEffect("Tetris/files/on_rotate.wav"));
+        Constants.soundEffects.put("on-collide", new SoundEffect("Tetris/files/on_collide.wav"));
     }
 
     // To start the game
@@ -87,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
         // Start the GameLoop
         while(gameThread != null) {
             // First of all let's calculate the frame delay, repeatedly because we can vary the FPS
-            long frameDelay = 1000/Constants.FPS;
+            long frameDelay = 1000/Constants.varCurrentFPS;
 
             // Fetch the start time of this frame
             frameStartTime = System.currentTimeMillis();

@@ -20,8 +20,12 @@ public class Constants {
     // Change the speed of the Game after every (this) many scores
     public static int GAME_SPEED_INCREASE_STEP = 50;
 
-    // The desired FPS to run the game at
-    public static int FPS = 5;
+    // This FPS value will be variable, it can change many times
+    public static int varCurrentFPS = 6;
+
+    // The desired FPS to run the game at... we will also change this, but
+    // only when changing the speed of the game
+    public static int constFPS = 6;
 
     // This is the desired Updates per frame
     public static int UPF = 3;

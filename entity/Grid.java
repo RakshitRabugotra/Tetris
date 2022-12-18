@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import Tetris.constants.Constants;
-import Tetris.constants.PieceProperties;
 import Tetris.main.GamePanel;
 import Tetris.main.KeyHandler;
+import Tetris.resource.BlockImageHandler;
 import Tetris.resource.Matrix;
 
 public class Grid extends Entity {
@@ -53,6 +53,9 @@ public class Grid extends Entity {
         // Copy the GamePanel reference
         this.gp = gp;
         this.keyH = keyH;
+
+        // Initialize all the images
+        BlockImageHandler.setWallImages("Tetris/art");
 
         // Initialize an empty grid first and then fill it with borders
         currentGridShape = new int[gridHeight][gridWidth];
@@ -404,6 +407,13 @@ public class Grid extends Entity {
 
     // Function to render a single tile
     private void renderGridTile(Graphics2D g2, int posX, int posY, int colorIndex) {
+        /*
+         * We will now place the image to the screen
+         */
+        g2.drawImage(BlockImageHandler.getColorIndexImage(colorIndex), posX, posY, Constants.SCALED_TILESIZE, Constants.SCALED_TILESIZE, null);
+        g2.setColor(gp.getBackground());
+
+        /*
         // First we will create a filled rectangle
         g2.setColor(PieceProperties.COLORS[colorIndex]);
         g2.fillRect(posX, posY, Constants.SCALED_TILESIZE, Constants.SCALED_TILESIZE);
@@ -411,6 +421,8 @@ public class Grid extends Entity {
         // with the color same as background color in GamePanel
         g2.setColor(gp.getBackground());
         g2.drawRect(posX, posY, Constants.SCALED_TILESIZE, Constants.SCALED_TILESIZE);
+        */
     }
+
 
 }

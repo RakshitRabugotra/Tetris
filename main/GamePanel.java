@@ -5,7 +5,6 @@ import Tetris.entity.Grid;
 import Tetris.resource.SoundEffect;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -21,17 +20,21 @@ public class GamePanel extends JPanel implements Runnable {
     // To handle the key press events
     public KeyHandler keyH = new KeyHandler();
 
+    // Private access to the info-panel
+    private InfoPanel iPanelRef;
+
     /*
      * Instantiate new Objects here!!
      */
     Grid grid = new Grid(this, keyH, 0, 0, Constants.MAX_COLUMNS, Constants.MAX_ROWS);
 
-    public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+    public GamePanel(InfoPanel iPanelRef) {
         this.setBackground(Constants.BACKGROUND_COLOR);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        // Copy the reference to the class
+        this.iPanelRef = iPanelRef;
 
         /*
          * Add audio files to the project here!
@@ -56,6 +59,12 @@ public class GamePanel extends JPanel implements Runnable {
          */
         // Update the grid...
         grid.update(dt);
+
+        // Update the state of the information
+        iPanelRef.setState(grid.gameScore, grid.linesCompleted, grid.nextPieceShape);
+        // Also update the information-panel to render these changes
+        iPanelRef.updatePanel();
+        
     }
 
     public void paintComponent(Graphics g) {

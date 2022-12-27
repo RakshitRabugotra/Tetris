@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import Tetris.constants.Constants;
+import Tetris.constants.PieceProperties;
 import Tetris.main.GamePanel;
 import Tetris.main.KeyHandler;
 import Tetris.resource.BlockImageHandler;
@@ -43,7 +44,9 @@ public class Grid extends Entity {
     public int[][] currentGridShape;
 
     // The score as of right now
-    public int score = 0;
+    public int gameScore = 0;
+    public int linesCompleted = 0;
+    public int[][] nextPieceShape = PieceProperties.SHAPES[0];
     
     public Grid(GamePanel gp, KeyHandler keyH, int posX, int posY, int gridWidth, int gridHeight) {
         // Place the grid at given position
@@ -132,13 +135,13 @@ public class Grid extends Entity {
         // Remove all the removable rows
         removeScoreRows();
 
-        // Print the score
-        System.out.println("SCORE: " + this.score);
-        // Print is the game over
-        System.out.println("GAME OVER: " + isGameOver());
-        // Print the Game FPS
-        System.out.println("FPS: " + Constants.constFPS);
-        System.out.println("Current FPS: " + Constants.varCurrentFPS);
+        // // Print the score
+        // System.out.println("SCORE: " + this.gameScore);
+        // // Print is the game over
+        // System.out.println("GAME OVER: " + isGameOver());
+        // // Print the Game FPS
+        // System.out.println("FPS: " + Constants.constFPS);
+        // System.out.println("Current FPS: " + Constants.varCurrentFPS);
     }
 
     @Override
@@ -198,6 +201,9 @@ public class Grid extends Entity {
         // If the piece color index is less than 1 or greater than 8 then.
         // we will randomize the color
         int colorIndex = (pieceColorIndex < 1 || pieceColorIndex > 8) ? RNG.nextInt(1, 8) : pieceColorIndex;
+
+        // Randomize the next Piece too
+        this.nextPieceShape = PieceProperties.SHAPES[(pieceColorIndex < 1 || pieceColorIndex > 8) ? RNG.nextInt(1, 8) : pieceColorIndex];
 
         Piece p = new Piece(keyH, posX, posY, colorIndex);
         p.upperBound = 1;
@@ -353,8 +359,7 @@ public class Grid extends Entity {
     private void removeScoreRows() {
         // We will clear the row which is filled with tiles
         int bonus = this.height;
-        int rowsRemoved = 0;
-
+    
         for(int row = this.height-1; row >= 0; row--) {
             // Check If all the elements are disabled tiles
             boolean isRowRemovable = true; 
@@ -372,15 +377,15 @@ public class Grid extends Entity {
             for(int k = row; k > 1; k--) {
                 permanentGridShape[k] = permanentGridShape[k-1];
             }
-            rowsRemoved++;
+            linesCompleted++;
             // Play the sound on removing a row
             Constants.soundEffects.get("on-score").play();
         }
 
-        this.score += rowsRemoved * bonus;
+        this.gameScore += linesCompleted * bonus;
         // Also check if the score has passed certain threshold,
         // Then we should increase the game speed
-        if(this.score >= gameSpeedThreshold) {
+        if(this.gameScore >= gameSpeedThreshold) {
             gameSpeedThreshold += Constants.GAME_SPEED_INCREASE_STEP;
             Constants.constFPS += 2;
         }

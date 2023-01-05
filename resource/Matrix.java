@@ -236,19 +236,14 @@ public class Matrix {
         if(!isSquare(B)) return new Matrix(B.rows, B.columns, 0);
 
         // Now let's swap the rows with columns
-        for(int j = 0; j < B.columns; j++) {
-            for(int i = j+1; i < B.rows; i++) {
-                // Swap the elements [i][j] with [j][i]
-                
-                // If the elements are same then don't bother doing all this
-                if(B.get(i, j) == B.get(j, i)) continue;
-                
-                // Else continue the swapping
-                int temp = B.get(i, j);
-                B.set(i, j, B.get(j, i));
-                B.set(j, i, temp);
+        for(int row = 0; row < B.rows; row++) {
+            for(int col = 0; col < row; col++) {
+                int temp = B.get(row, col);
+                B.set(row, col, B.get(col, row));
+                B.set(col, row, temp);
             }
         }
+
         // Return the new Transposed Matrix
         return B;
     }
@@ -381,9 +376,31 @@ public class Matrix {
     	if(!isSquare(this)) return new Matrix(i, j, 0);
     	
     	// Make a new Matrix which removes the row i and column j from this matrix
-    	Matrix minorMatrix = Matrix.removeRow(this, i);
+    	/* // This is the old way of doing it... quite slow
+        Matrix minorMatrix = Matrix.removeRow(this, i);
     	minorMatrix = Matrix.removeColumn(minorMatrix, j);
-    	
+    	*/
+        // We will create a minor of size 1 less than the current size
+        Matrix minorMatrix = new Matrix(this.rows-1, this.columns-1);
+
+        int minor_row = 0, minor_col = 0;
+        for(int row = 0; row < this.rows; row++) {
+            // Exclude the ith row
+            if(i == row) continue;
+
+            for(int col = 0; col < this.columns; col++) {
+                // Exclude the jth row
+                if(j == col) continue;
+
+                // Add the element to the minor
+                minorMatrix.set(minor_row, minor_col, this.get(row, col));
+
+                minor_col++;
+            }
+
+            minor_row++;
+        }
+
     	return minorMatrix;
     }
     
@@ -416,7 +433,7 @@ public class Matrix {
     		coFactorMatrix.set(i, j, this.cofactor(i, j));
     	}
     	
-    	// Return the tranpose of this cofactor matrix
+    	// Return the transpose of this cofactor matrix
     	return Matrix.transpose(coFactorMatrix);
     }
     
